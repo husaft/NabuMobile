@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace Nabu.Services
 {
-	public class JsonDataStore : IDataStore2<VocConfig>
+	public class JsonDataStore : IDataStore<VocConfig>
 	{
-		private readonly EmbeddedLoader _loader;
-		private readonly JsonConfigReader _reader;
+		private readonly IFileLoader _loader;
+		private readonly IConfigReader<string> _reader;
 
 		public JsonDataStore()
 		{

@@ -1,5 +1,4 @@
-﻿using Nabu.Views;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Nabu
 {
@@ -8,9 +7,6 @@ namespace Nabu
 		public AppShell()
 		{
 			InitializeComponent();
-			Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-			Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 		}
-
 	}
 }

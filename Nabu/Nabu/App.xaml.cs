@@ -10,7 +10,6 @@ namespace Nabu
 		{
 			InitializeComponent();
 
-			DependencyService.Register<MockDataStore>();
 			DependencyService.Register<JsonDataStore>();
 			MainPage = new AppShell();
 		}

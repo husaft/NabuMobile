@@ -42,7 +42,7 @@ namespace Nabu.ViewModels
 				Vocabularies.Clear();
 				Modes.Clear();
 				Lections.Clear();
-				var items = await DataStore2.GetItemsAsync(true);
+				var items = await DataStore.GetItemsAsync(true);
 				foreach (var item in items)
 				{
 					var voc = item.Vocabulary;

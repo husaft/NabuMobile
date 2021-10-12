@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Nabu.Services
 {
-	public interface IDataStore2<T>
+	public interface IDataStore<T>
 	{
 		Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
 	}
