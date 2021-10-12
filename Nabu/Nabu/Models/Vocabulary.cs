@@ -13,5 +13,7 @@
 		public Source Src { get; set; }
 
 		public Mode[] Modes { get; set; }
+
+		public override string ToString() => Name;
 	}
 }

@@ -7,5 +7,7 @@
 		public string Short { get; set; }
 
 		public string Long { get; set; }
+
+		public override string ToString() => Long;
 	}
 }

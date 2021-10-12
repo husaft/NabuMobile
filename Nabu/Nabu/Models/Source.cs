@@ -9,5 +9,7 @@
 		public string Label { get; set; }
 
 		public string[] Labels { get; set; }
+
+		public string[][] Words { get; set; }
 	}
 }

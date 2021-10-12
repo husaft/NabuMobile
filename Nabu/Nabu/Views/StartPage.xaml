@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="Nabu.Views.StartPage"
+	xmlns:local="clr-namespace:Nabu.ViewModels"  
+	xmlns:model="clr-namespace:Nabu.Models"  
+	Title="{Binding Title}">
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Go" Command="{Binding GoCommand}" />
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Color x:Key="Accent">#96d1ff</Color>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<RefreshView x:DataType="local:StartViewModel" Command="{Binding LoadItemsCommand}" 
+	             IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+		<ScrollView>
+			<StackLayout>
+				<Label Text="Vocabularies:" 
+				       HorizontalOptions="Center" 
+				       Margin="20"
+					   FontSize="Large" />
+				<Picker Title=""
+				        Margin="20"
+				        VerticalOptions="CenterAndExpand" 
+				        ItemsSource="{Binding Vocabularies}" 
+				        />
+
+				<Label Text="Modes:" 
+				       HorizontalOptions="Center" 
+				       Margin="20"
+				       FontSize="Large" />
+				<Picker Title=""
+				        Margin="20"
+				        VerticalOptions="CenterAndExpand" 
+				        ItemsSource="{Binding Modes}"
+				        />
+
+				<Label Text="Lections:" 
+				       HorizontalOptions="Center" 
+				       Margin="20"
+				       FontSize="Large" />
+				<Picker Title=""
+						Margin="20"
+				        VerticalOptions="CenterAndExpand" 
+						ItemsSource="{Binding Lections}"
+						/>
+			</StackLayout>
+		</ScrollView>
+	</RefreshView>
+</ContentPage>
