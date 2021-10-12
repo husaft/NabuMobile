@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace Nabu.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class WordsViewModel : BaseViewModel
     {
-        public AboutViewModel()
+        public WordsViewModel()
         {
-            Title = "About";
+            Title = "Words";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
         }
 

@@ -31,7 +31,7 @@ namespace Nabu.ViewModels
 
 		private async void OnGo(object obj)
 		{
-			await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+			await Shell.Current.GoToAsync($"//{nameof(SessionPage)}");
 		}
 
 		private async Task ExecuteLoadItemsCommand()

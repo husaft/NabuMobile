@@ -2,9 +2,9 @@
 
 namespace Nabu.Views
 {
-	public partial class AboutPage : ContentPage
+	public partial class SessionPage : ContentPage
 	{
-		public AboutPage()
+		public SessionPage()
 		{
 			InitializeComponent();
 		}
