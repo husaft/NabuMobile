@@ -1,4 +1,5 @@
-﻿using Nabu.ViewModels;
+﻿using System;
+using Nabu.ViewModels;
 using Xamarin.Forms;
 
 namespace Nabu.Views
@@ -18,6 +19,11 @@ namespace Nabu.Views
 		{
 			base.OnAppearing();
 			_viewModel.OnAppearing();
+		}
+
+		private void Picker_OnSelectedIndexChanged(object sender, EventArgs e)
+		{
+			_viewModel.GoCommand.ChangeCanExecute();
 		}
 	}
 }

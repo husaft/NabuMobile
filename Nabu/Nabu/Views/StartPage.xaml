@@ -28,6 +28,8 @@
 				        Margin="20"
 				        VerticalOptions="CenterAndExpand" 
 				        ItemsSource="{Binding Vocabularies}" 
+						SelectedIndex="{Binding VocabularyIndex}" 
+						SelectedIndexChanged="Picker_OnSelectedIndexChanged"
 				        />
 
 				<Label Text="Modes:" 
@@ -37,7 +39,9 @@
 				<Picker Title=""
 				        Margin="20"
 				        VerticalOptions="CenterAndExpand" 
-				        ItemsSource="{Binding Modes}"
+				        ItemsSource="{Binding Modes}" 
+						SelectedIndex="{Binding ModeIndex}" 
+				        SelectedIndexChanged="Picker_OnSelectedIndexChanged"
 				        />
 
 				<Label Text="Lections:" 
@@ -47,7 +51,9 @@
 				<Picker Title=""
 						Margin="20"
 				        VerticalOptions="CenterAndExpand" 
-						ItemsSource="{Binding Lections}"
+						ItemsSource="{Binding Lections}" 
+						SelectedIndex="{Binding LectionIndex}" 
+						SelectedIndexChanged="Picker_OnSelectedIndexChanged"
 						/>
 			</StackLayout>
 		</ScrollView>

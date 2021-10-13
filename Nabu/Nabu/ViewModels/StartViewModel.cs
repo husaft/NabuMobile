@@ -11,8 +11,11 @@ namespace Nabu.ViewModels
 	public class StartViewModel : BaseViewModel
 	{
 		public ObservableCollection<Vocabulary> Vocabularies { get; }
+		public int VocabularyIndex { get; set; } = -2;
 		public ObservableCollection<Mode> Modes { get; }
+		public int ModeIndex { get; set; } = -2;
 		public ObservableCollection<string> Lections { get; }
+		public int LectionIndex { get; set; } = -2;
 
 		public Command LoadItemsCommand { get; }
 
@@ -26,11 +29,20 @@ namespace Nabu.ViewModels
 			Lections = new ObservableCollection<string>();
 			LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-			GoCommand = new Command(OnGo);
+			GoCommand = new Command(OnGo, CanGo);
 		}
+
+		private bool CanGo(object arg) => VocabularyIndex >= 0 && ModeIndex >= 0 && LectionIndex >= 0;
 
 		private async void OnGo(object obj)
 		{
+			var unit = new Unit
+			{
+				Vocabulary = Vocabularies[VocabularyIndex],
+				Mode = Modes[ModeIndex],
+				Lection = Lections[LectionIndex]
+			};
+			SessionViewModel.Unit = unit;
 			await Shell.Current.GoToAsync($"//{nameof(SessionPage)}");
 		}
 
