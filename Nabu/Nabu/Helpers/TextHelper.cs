@@ -6,6 +6,8 @@ namespace Nabu.Helpers
 	{
 		public static StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
 
+		public static StringComparison InvIgnoreCase = StringComparison.InvariantCultureIgnoreCase;
+
 		public static bool Contains(this string source, string find, StringComparison comp)
 		{
 			return source?.IndexOf(find, comp) >= 0;

@@ -40,9 +40,9 @@ namespace Nabu.Views
 			var text = e.NewTextValue;
 			dictView.ItemsSource = _all.Where(x =>
 				x.Language1.Contains(text, TextHelper.IgnoreCase) ||
-				x.Language2.Contains(text, TextHelper.IgnoreCase) ||
-				x.Transcription.Contains(text, TextHelper.IgnoreCase)
-			);
+				x.Language2.Contains(text, TextHelper.InvIgnoreCase) ||
+				x.Transcription.Contains(text, TextHelper.InvIgnoreCase)
+			).Take(_viewModel.MaxNumber);
 		}
 	}
 }
