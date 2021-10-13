@@ -33,8 +33,7 @@ namespace Nabu.ViewModels
 				foreach (var item in items)
 				{
 					((JsonDataStore)DataStore).LoadWords(item);
-					var voc = item.Vocabulary;
-					foreach (var entry in voc.Src.Words)
+					foreach (var entry in item.Vocabulary.Src.Words)
 					{
 						if (entry.Length != 5)
 							continue;
