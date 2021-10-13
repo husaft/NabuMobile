@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Nabu.Helpers;
-using Nabu.Models;
 using Nabu.ViewModels;
 using Xamarin.Forms;
 
@@ -24,21 +22,15 @@ namespace Nabu.Views
 			_viewModel.OnAppearing();
 		}
 
-		private IEnumerable<Word> _all;
-
 		private void InputView_OnTextChanged(object sender, TextChangedEventArgs e)
 		{
-			if (_all == null)
+			var text = e.NewTextValue;
+			if (string.IsNullOrWhiteSpace(text))
 			{
-				_all = dictView.ItemsSource.Cast<Word>();
-			}
-			if (string.IsNullOrWhiteSpace(e.NewTextValue))
-			{
-				dictView.ItemsSource = _all;
+				dictView.ItemsSource = _viewModel.AllWords.Take(_viewModel.MaxNumber);
 				return;
 			}
-			var text = e.NewTextValue;
-			dictView.ItemsSource = _all.Where(x =>
+			dictView.ItemsSource = _viewModel.AllWords.Where(x =>
 				x.Language1.Contains(text, TextHelper.IgnoreCase) ||
 				x.Language2.Contains(text, TextHelper.InvIgnoreCase) ||
 				x.Transcription.Contains(text, TextHelper.InvIgnoreCase)

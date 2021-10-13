@@ -15,6 +15,9 @@ namespace Nabu.ViewModels
 		public ObservableCollection<Word> Words { get; }
 		public Command LoadItemsCommand { get; }
 
+		public Word[] AllWords;
+		public readonly int MaxNumber = 75;
+
 		public WordsViewModel()
 		{
 			Title = "Words";
@@ -51,7 +54,8 @@ namespace Nabu.ViewModels
 							});
 					}
 				}
-				foreach (var word in temp.OrderBy(t => t.Language2))
+				AllWords = temp.OrderBy(t => t.Language2).ToArray();
+				foreach (var word in AllWords.Take(MaxNumber))
 					Words.Add(word);
 			}
 			catch (Exception ex)
