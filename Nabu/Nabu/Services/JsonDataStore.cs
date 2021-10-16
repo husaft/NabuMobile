@@ -28,6 +28,8 @@ namespace Nabu.Services
 
 		internal void LoadWords(Vocabulary voc)
 		{
+			if (voc.Src.Words != null)
+				return;
 			var wordsFile = voc.Src.Src;
 			var wordsJson = _loader.LoadTextFile(wordsFile);
 			var wordsList = JsonConvert.DeserializeObject<string[][]>(wordsJson);
