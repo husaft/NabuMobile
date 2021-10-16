@@ -50,7 +50,7 @@
 			       Text="{Binding CurrentWord.Transcription}" IsReadOnly="True" FontSize="Large" />
 			<Label Grid.Row="4" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Deutsch:" />
 			<Entry Grid.Row="5" Margin="90,0,90,0" VerticalOptions="Center" 
-			       FontSize="Large" />
+			       FontSize="Large" Text="{Binding CurrentInput}" />
 		</Grid>
 		<Grid Grid.Row="1" IsVisible="{Binding IsMode2}">
 			<Grid.RowDefinitions>
@@ -64,7 +64,7 @@
 				   Text="{Binding CurrentWord.Language2}" IsReadOnly="True" FontSize="Large" />
 			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Persisch:" />
 			<Entry Grid.Row="3" Margin="90,0,90,0" VerticalOptions="Center" 
-				   FontSize="Large" />
+				   FontSize="Large" Text="{Binding CurrentInput}" />
 		</Grid>
 		<Grid Grid.Row="1" IsVisible="{Binding IsMode3}">
 			<Grid.RowDefinitions>
@@ -78,13 +78,13 @@
 			       Text="{Binding CurrentWord.Language1}" IsReadOnly="True" FontSize="Large" />
 			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Transkription:" />
 			<Entry Grid.Row="3" Margin="90,0,90,0" VerticalOptions="Center" 
-			       FontSize="Large" />
+			       FontSize="Large" Text="{Binding CurrentInput}" />
 		</Grid>
 			<StackLayout Grid.Row="2" Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
 
 	            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-					<Button Text="OK" />
-					<Button Text="Solution" />
+					<Button Text="OK" Command="{Binding OkCommand}" />
+					<Button Text="Solution" Command="{Binding SolveCommand}" />
 					<StackLayout Orientation="Horizontal">
 						<Switch IsToggled="{Binding PlaySound}" />
 						<Label Text="Play sound" VerticalOptions="CenterAndExpand" FontSize="Medium" />
