@@ -15,28 +15,72 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <Button Text="?"></Button>
-            </StackLayout>
+            <RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+        <StackLayout BackgroundColor="{StaticResource Accent}" 
+                     VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+	        <Label Padding="12" HorizontalOptions="CenterAndExpand">
+		            <Label.FormattedText>
+			            <FormattedString>
+				            <FormattedString.Spans>
+					            <Span Text="{Binding Vocabulary.Name}" />
+					            <Span Text=" | " />
+					            <Span Text="{Binding Mode.Long}" />
+					            <Span Text=" | " />
+					            <Span Text="{Binding Lection}" />
+				            </FormattedString.Spans>
+			            </FormattedString>
+		            </Label.FormattedText>
+	        </Label>
         </StackLayout>
-        <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-
-				<Label Padding="0,24,0,0" HorizontalOptions="CenterAndExpand">
-					<Label.FormattedText>
-						<FormattedString>
-							<FormattedString.Spans>
-								<Span Text="{Binding Vocabulary.Name}" />
-								<Span Text=" | " />
-								<Span Text="{Binding Mode.Long}" />
-								<Span Text=" | " />
-								<Span Text="{Binding Lection}" />
-							</FormattedString.Spans>
-						</FormattedString>
-					</Label.FormattedText>
-				</Label>
+		<Grid Grid.Row="1" IsVisible="{Binding IsMode1}">
+		    <Grid.RowDefinitions>
+			    <RowDefinition Height="1*" />
+			    <RowDefinition Height="1*" />
+			    <RowDefinition Height="1*" />
+			    <RowDefinition Height="1*" />
+			    <RowDefinition Height="1*" />
+			    <RowDefinition Height="1*" />
+		    </Grid.RowDefinitions>
+			<Label Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Persisch:" />
+			<Entry Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+			       Text="{Binding CurrentWord.Language1}" IsReadOnly="True" FontSize="Large" />
+			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Transkription:" />
+			<Entry Grid.Row="3" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+			       Text="{Binding CurrentWord.Transcription}" IsReadOnly="True" FontSize="Large" />
+			<Label Grid.Row="4" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Deutsch:" />
+			<Entry Grid.Row="5" Margin="90,0,90,0" VerticalOptions="Center" 
+			       FontSize="Large" />
+		</Grid>
+		<Grid Grid.Row="1" IsVisible="{Binding IsMode2}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*" />
+				<RowDefinition Height="1*" />
+				<RowDefinition Height="1*" />
+				<RowDefinition Height="1*" />
+			</Grid.RowDefinitions>
+			<Label Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Deutsch:" />
+			<Entry Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+				   Text="{Binding CurrentWord.Language2}" IsReadOnly="True" FontSize="Large" />
+			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Persisch:" />
+			<Entry Grid.Row="3" Margin="90,0,90,0" VerticalOptions="Center" 
+				   FontSize="Large" />
+		</Grid>
+		<Grid Grid.Row="1" IsVisible="{Binding IsMode3}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1*" />
+				<RowDefinition Height="1*" />
+				<RowDefinition Height="1*" />
+				<RowDefinition Height="1*" />
+			</Grid.RowDefinitions>
+			<Label Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Persisch:" />
+			<Entry Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+			       Text="{Binding CurrentWord.Language1}" IsReadOnly="True" FontSize="Large" />
+			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Transkription:" />
+			<Entry Grid.Row="3" Margin="90,0,90,0" VerticalOptions="Center" 
+			       FontSize="Large" />
+		</Grid>
+			<StackLayout Grid.Row="2" Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
 
 	            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
 					<Button Text="OK" />
@@ -51,7 +95,6 @@
 	            <ProgressBar Progress="{Binding Wrong}" ProgressColor="Red" />
 
 			</StackLayout>
-        </ScrollView>
     </Grid>
 
 </ContentPage>
