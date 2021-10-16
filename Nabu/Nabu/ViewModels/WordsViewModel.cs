@@ -37,22 +37,8 @@ namespace Nabu.ViewModels
 				{
 					((JsonDataStore)DataStore).LoadWords(item);
 					foreach (var entry in item.Vocabulary.Src.Words)
-					{
-						if (entry.Length != 5)
-							continue;
-						var lang2 = entry[3].Trim();
-						if (string.IsNullOrWhiteSpace(lang2))
-							continue;
-						foreach (var part in lang2.Split(new[] { ", ", "," }, StringSplitOptions.None))
-							temp.Add(new Word
-							{
-								Sound = entry[4],
-								Lection = entry[1],
-								Language1 = entry[0],
-								Language2 = part,
-								Transcription = entry[2]
-							});
-					}
+						foreach (var word in AsWordObj(entry))
+							temp.Add(word);
 				}
 				AllWords = temp.OrderBy(t => t.Language2).ToArray();
 				foreach (var word in AllWords.Take(MaxNumber))
@@ -71,6 +57,24 @@ namespace Nabu.ViewModels
 		public void OnAppearing()
 		{
 			IsBusy = true;
+		}
+
+		internal static IEnumerable<Word> AsWordObj(string[] entry)
+		{
+			if (entry.Length != 5)
+				yield break;
+			var lang2 = entry[3].Trim();
+			if (string.IsNullOrWhiteSpace(lang2))
+				yield break;
+			foreach (var part in lang2.Split(new[] { ", ", "," }, StringSplitOptions.None))
+				yield return new Word
+				{
+					Sound = entry[4],
+					Lection = entry[1],
+					Language1 = entry[0],
+					Language2 = part.Trim(),
+					Transcription = entry[2]
+				};
 		}
 	}
 }
