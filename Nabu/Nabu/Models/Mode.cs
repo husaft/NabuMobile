@@ -2,7 +2,7 @@
 {
 	public class Mode
 	{
-		public string Id { get; set; }
+		public int? Id { get; set; }
 
 		public string Short { get; set; }
 
