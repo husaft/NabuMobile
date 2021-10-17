@@ -54,6 +54,8 @@ namespace Nabu.ViewModels
 
 			OkCommand = new Command(OnOk);
 			SolveCommand = new Command(OnSolve);
+
+			ResetView();
 		}
 
 		public void OnAppearing()
@@ -120,7 +122,17 @@ namespace Nabu.ViewModels
 
 		public void Update(object instance)
 		{
+			ResetView();
 			Unit = (Unit)instance;
+		}
+
+		private void ResetView()
+		{
+			CurrentInput = null;
+			Wrong = 0;
+			WrongCount = 0;
+			Correct = 0;
+			CorrectCount = 0;
 		}
 	}
 }
