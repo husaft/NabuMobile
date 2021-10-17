@@ -7,9 +7,21 @@ using Xamarin.Forms;
 
 namespace Nabu.ViewModels
 {
-	public class SessionViewModel : BaseViewModel
+	public class SessionViewModel : BaseViewModel, IUpdateable
 	{
-		public static Unit Unit { get; set; }
+		private Unit Unit
+		{
+			get => Helpers.Environment.GetIfSet(this);
+			set
+			{
+				OnPropertyChanged(nameof(Vocabulary));
+				OnPropertyChanged(nameof(Mode));
+				OnPropertyChanged(nameof(Lection));
+				OnPropertyChanged(nameof(IsMode1));
+				OnPropertyChanged(nameof(IsMode2));
+				OnPropertyChanged(nameof(IsMode3));
+			}
+		}
 
 		public Vocabulary Vocabulary => Unit?.Vocabulary ?? new Vocabulary();
 		public Mode Mode => Unit?.Mode ?? new Mode();
@@ -104,6 +116,11 @@ namespace Nabu.ViewModels
 			else
 				return;
 			WrongCount++;
+		}
+
+		public void Update(object instance)
+		{
+			Unit = (Unit)instance;
 		}
 	}
 }

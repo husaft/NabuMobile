@@ -10,12 +10,29 @@ namespace Nabu.ViewModels
 {
 	public class StartViewModel : BaseViewModel
 	{
+		private int _vocabularyIndex = -2;
+		private int _modeIndex = -2;
+		private int _lectionIndex = -2;
 		public ObservableCollection<Vocabulary> Vocabularies { get; }
-		public int VocabularyIndex { get; set; } = -2;
+
+		public int VocabularyIndex
+		{
+			get => _vocabularyIndex; set { _vocabularyIndex = value; OnPropertyChanged(); }
+		}
+
 		public ObservableCollection<Mode> Modes { get; }
-		public int ModeIndex { get; set; } = -2;
+
+		public int ModeIndex
+		{
+			get => _modeIndex; set { _modeIndex = value; OnPropertyChanged(); }
+		}
+
 		public ObservableCollection<string> Lections { get; }
-		public int LectionIndex { get; set; } = -2;
+
+		public int LectionIndex
+		{
+			get => _lectionIndex; set { _lectionIndex = value; OnPropertyChanged(); }
+		}
 
 		public Command LoadItemsCommand { get; }
 
@@ -78,6 +95,14 @@ namespace Nabu.ViewModels
 		public void OnAppearing()
 		{
 			IsBusy = true;
+			var previous = Helpers.Environment.GetIfSet(this);
+			if (previous != null)
+			{
+				VocabularyIndex = previous.VocabularyIndex;
+				ModeIndex = previous.ModeIndex;
+				LectionIndex = previous.LectionIndex;
+			}
+			IsBusy = false;
 		}
 	}
 }
