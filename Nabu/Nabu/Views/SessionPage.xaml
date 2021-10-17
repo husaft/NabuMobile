@@ -82,7 +82,7 @@
 		</Grid>
 			<StackLayout Grid.Row="2" Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
 
-	            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+				<StackLayout IsVisible="{Binding HasStillWords}" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
 					<Button Text="OK" Command="{Binding OkCommand}" />
 					<Button Text="Solution" Command="{Binding SolveCommand}" />
 					<StackLayout Orientation="Horizontal">

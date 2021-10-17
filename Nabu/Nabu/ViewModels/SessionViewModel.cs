@@ -20,6 +20,7 @@ namespace Nabu.ViewModels
 				OnPropertyChanged(nameof(IsMode1));
 				OnPropertyChanged(nameof(IsMode2));
 				OnPropertyChanged(nameof(IsMode3));
+				OnPropertyChanged(nameof(HasStillWords));
 			}
 		}
 
@@ -35,9 +36,11 @@ namespace Nabu.ViewModels
 		public List<Word> LectionWords { get; set; }
 		private Random _random;
 
-		public bool IsMode1 => Mode.Id == 0;
-		public bool IsMode2 => Mode.Id == 1;
-		public bool IsMode3 => Mode.Id == 2;
+		public bool IsMode1 => Mode.Id == 0 && HasStillWords;
+		public bool IsMode2 => Mode.Id == 1 && HasStillWords;
+		public bool IsMode3 => Mode.Id == 2 && HasStillWords;
+
+		public bool HasStillWords => LectionWords?.Count >= 1;
 
 		public Word CurrentWord
 		{
@@ -93,6 +96,7 @@ namespace Nabu.ViewModels
 
 		private int WrongCount;
 		private int CorrectCount;
+		private bool Solved;
 		private string _currentInput;
 		private Word _currentWord;
 
@@ -106,11 +110,15 @@ namespace Nabu.ViewModels
 			else if (IsMode3)
 				isCorrect = CompareText(CurrentWord.Transcription, CurrentInput);
 			else
+			{
+				Unit = null;
 				return;
-			if (isCorrect)
+			}
+			if (!Solved && isCorrect)
 				CorrectCount++;
 			else
 				WrongCount++;
+			NextWord();
 		}
 
 		private void OnSolve()
@@ -123,7 +131,7 @@ namespace Nabu.ViewModels
 				CurrentInput = CurrentWord.Transcription;
 			else
 				return;
-			WrongCount++;
+			Solved = true;
 		}
 
 		public void Update(object instance)
@@ -136,15 +144,24 @@ namespace Nabu.ViewModels
 		{
 			WrongCount = 0;
 			CorrectCount = 0;
+			LectionWords = null;
+			Repetitions.Clear();
 			NextWord();
 		}
 
 		private void NextWord()
 		{
+			ShowProgress();
 			CurrentInput = null;
+			Solved = false;
 			if (LectionWords == null)
 			{
 				OnAppearing();
+			}
+			if (LectionWords.Count == 0)
+			{
+				Unit = null;
+				return;
 			}
 			var newIndex = _random.Next(0, LectionWords.Count);
 			var newWord = LectionWords[newIndex];
@@ -155,6 +172,12 @@ namespace Nabu.ViewModels
 				LectionWords.RemoveAt(newIndex);
 			Repetitions[key] = currentRepeat;
 			CurrentWord = newWord;
+		}
+
+		private void ShowProgress()
+		{
+			OnPropertyChanged(nameof(Correct));
+			OnPropertyChanged(nameof(Wrong));
 		}
 	}
 }
