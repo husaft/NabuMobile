@@ -56,10 +56,13 @@ namespace Nabu.ViewModels
 			var unit = new Unit
 			{
 				Vocabulary = Vocabularies[VocabularyIndex],
+				VocabularyIndex = VocabularyIndex,
 				Mode = Modes[ModeIndex],
-				Lection = Lections[LectionIndex]
+				ModeIndex = ModeIndex,
+				Lection = Lections[LectionIndex],
+				LectionIndex = LectionIndex
 			};
-			SessionViewModel.Unit = unit;
+			Helpers.Environment.UpdateUnit(this, unit);
 			await Shell.Current.GoToAsync($"//{nameof(SessionPage)}");
 		}
 
