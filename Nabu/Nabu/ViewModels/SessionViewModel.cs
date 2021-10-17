@@ -27,17 +27,22 @@ namespace Nabu.ViewModels
 		public Mode Mode => Unit?.Mode ?? new Mode();
 		public string Lection => Unit?.Lection;
 
-		public double Correct => CorrectCount / ((LectionWords?.Length ?? 1) * MaxRepetitions);
-		public double Wrong => WrongCount / ((LectionWords?.Length ?? 1) * MaxRepetitions);
+		public double Correct => CorrectCount / ((LectionWords?.Count ?? 1) * MaxRepetitions);
+		public double Wrong => WrongCount / ((LectionWords?.Count ?? 1) * MaxRepetitions);
 		public bool PlaySound { get; set; } = true;
 		public IDictionary<string, int> Repetitions { get; set; }
 		private const double MaxRepetitions = 2.0;
-		public Word[] LectionWords { get; set; }
+		public List<Word> LectionWords { get; set; }
 		private Random _random;
 
 		public bool IsMode1 => Mode.Id == 0;
 		public bool IsMode2 => Mode.Id == 1;
 		public bool IsMode3 => Mode.Id == 2;
+
+		public Word CurrentWord
+		{
+			get => _currentWord; set { _currentWord = value; OnPropertyChanged(); }
+		}
 
 		public string CurrentInput
 		{
@@ -69,9 +74,8 @@ namespace Nabu.ViewModels
 				var l = Lection;
 				var possible = words.Where(w => w.Length >= 2 &&
 												w[1].Replace(".", string.Empty) == l)
-					.SelectMany(w => WordsViewModel.AsWordObj(w, split: false))
-					.ToArray();
-				LectionWords = possible;
+					.SelectMany(w => WordsViewModel.AsWordObj(w, split: false));
+				LectionWords = new List<Word>(possible);
 			}
 			IsBusy = false;
 		}
@@ -90,6 +94,7 @@ namespace Nabu.ViewModels
 		private int WrongCount;
 		private int CorrectCount;
 		private string _currentInput;
+		private Word _currentWord;
 
 		private void OnOk()
 		{
@@ -129,9 +134,27 @@ namespace Nabu.ViewModels
 
 		private void ResetView()
 		{
-			CurrentInput = null;
 			WrongCount = 0;
 			CorrectCount = 0;
+			NextWord();
+		}
+
+		private void NextWord()
+		{
+			CurrentInput = null;
+			if (LectionWords == null)
+			{
+				OnAppearing();
+			}
+			var newIndex = _random.Next(0, LectionWords.Count);
+			var newWord = LectionWords[newIndex];
+			var key = newWord.Transcription;
+			Repetitions.TryGetValue(key, out var currentRepeat);
+			currentRepeat++;
+			if (currentRepeat >= (int)MaxRepetitions)
+				LectionWords.RemoveAt(newIndex);
+			Repetitions[key] = currentRepeat;
+			CurrentWord = newWord;
 		}
 	}
 }
