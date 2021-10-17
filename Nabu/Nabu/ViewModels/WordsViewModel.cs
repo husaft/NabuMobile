@@ -37,7 +37,7 @@ namespace Nabu.ViewModels
 				{
 					((JsonDataStore)DataStore).LoadWords(item);
 					foreach (var entry in item.Vocabulary.Src.Words)
-						foreach (var word in AsWordObj(entry))
+						foreach (var word in AsWordObj(entry, split: true))
 							temp.Add(word);
 				}
 				AllWords = temp.OrderBy(t => t.Language2).ToArray();
@@ -59,20 +59,28 @@ namespace Nabu.ViewModels
 			IsBusy = true;
 		}
 
-		internal static IEnumerable<Word> AsWordObj(string[] entry)
+		private static string[] SplitWords(string text)
+		{
+			var cmp = StringSplitOptions.RemoveEmptyEntries;
+			var parts = text.Split(new[] { ", ", "," }, cmp);
+			return parts;
+		}
+
+		internal static IEnumerable<Word> AsWordObj(string[] entry, bool split)
 		{
 			if (entry.Length != 5)
 				yield break;
 			var lang2 = entry[3].Trim();
 			if (string.IsNullOrWhiteSpace(lang2))
 				yield break;
-			foreach (var part in lang2.Split(new[] { ", ", "," }, StringSplitOptions.None))
+			foreach (var part in split ? SplitWords(lang2) : new[] { lang2 })
 				yield return new Word
 				{
 					Sound = entry[4],
 					Lection = entry[1],
 					Language1 = entry[0],
 					Language2 = part.Trim(),
+					Language2Array = split ? null : SplitWords(part),
 					Transcription = entry[2]
 				};
 		}

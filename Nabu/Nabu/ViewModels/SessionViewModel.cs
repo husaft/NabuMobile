@@ -27,10 +27,11 @@ namespace Nabu.ViewModels
 		public Mode Mode => Unit?.Mode ?? new Mode();
 		public string Lection => Unit?.Lection;
 
-		public double Correct { get; set; } = 0.3;
-		public double Wrong { get; set; } = 0.56;
+		public double Correct => CorrectCount / ((LectionWords?.Length ?? 1) * MaxRepetitions);
+		public double Wrong => WrongCount / ((LectionWords?.Length ?? 1) * MaxRepetitions);
 		public bool PlaySound { get; set; } = true;
 		public IDictionary<string, int> Repetitions { get; set; }
+		private const double MaxRepetitions = 2.0;
 		public Word[] LectionWords { get; set; }
 		private Random _random;
 
@@ -68,7 +69,7 @@ namespace Nabu.ViewModels
 				var l = Lection;
 				var possible = words.Where(w => w.Length >= 2 &&
 												w[1].Replace(".", string.Empty) == l)
-					.SelectMany(WordsViewModel.AsWordObj)
+					.SelectMany(w => WordsViewModel.AsWordObj(w, split: false))
 					.ToArray();
 				LectionWords = possible;
 			}
@@ -129,9 +130,7 @@ namespace Nabu.ViewModels
 		private void ResetView()
 		{
 			CurrentInput = null;
-			Wrong = 0;
 			WrongCount = 0;
-			Correct = 0;
 			CorrectCount = 0;
 		}
 	}

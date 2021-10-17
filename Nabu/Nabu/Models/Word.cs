@@ -10,6 +10,8 @@
 
 		public string Language2 { get; set; }
 
+		public string[] Language2Array { get; set; }
+
 		public string Sound { get; set; }
 	}
 }
