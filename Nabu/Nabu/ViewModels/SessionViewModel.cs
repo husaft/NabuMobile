@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nabu.Helpers;
 using Nabu.Models;
 using Nabu.Services;
 using Xamarin.Forms;
@@ -87,8 +88,8 @@ namespace Nabu.ViewModels
 
 		private static bool CompareText(string first, string second)
 		{
-			first = first?.Trim('/').Trim();
-			second = second?.Trim('/').Trim();
+			first = first?.Trim('/').Trim().ToASCII();
+			second = second?.Trim('/').Trim().ToASCII();
 			if (first == second)
 				return true;
 			if (StringComparer.InvariantCultureIgnoreCase.Compare(first, second) == 0)

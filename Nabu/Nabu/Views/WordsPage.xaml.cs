@@ -31,9 +31,10 @@ namespace Nabu.Views
 				return;
 			}
 			dictView.ItemsSource = _viewModel.AllWords.Where(x =>
-				x.Language1.Contains(text, TextHelper.IgnoreCase) ||
-				x.Language2.Contains(text, TextHelper.InvIgnoreCase) ||
-				x.Transcription.Contains(text, TextHelper.InvIgnoreCase)
+					 x.Language1.Contains(text, TextHelper.InvIgnoreCase) ||
+					 x.Language2.Contains(text, TextHelper.InvIgnoreCase) ||
+					 x.Transcription.Contains(text, TextHelper.InvIgnoreCase) ||
+					 x.Transcription.ToASCII().Contains(text, TextHelper.InvIgnoreCase)
 			).Take(_viewModel.MaxNumber);
 		}
 	}

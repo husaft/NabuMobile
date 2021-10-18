@@ -61,9 +61,12 @@ namespace Nabu.ViewModels
 
 		private static string[] SplitWords(string text)
 		{
-			var cmp = StringSplitOptions.RemoveEmptyEntries;
-			var parts = text.Split(new[] { ", ", "," }, cmp);
-			return parts;
+			const StringSplitOptions cmp = StringSplitOptions.RemoveEmptyEntries;
+			var parts = text
+				.Split(new[] { ", ", "," }, cmp)
+				.Select(p => p.Trim())
+				.Where(p => !string.IsNullOrWhiteSpace(p));
+			return parts.ToArray();
 		}
 
 		internal static IEnumerable<Word> AsWordObj(string[] entry, bool split)
@@ -76,12 +79,12 @@ namespace Nabu.ViewModels
 			foreach (var part in split ? SplitWords(lang2) : new[] { lang2 })
 				yield return new Word
 				{
-					Sound = entry[4],
-					Lection = entry[1],
-					Language1 = entry[0],
+					Sound = entry[4].Trim(),
+					Lection = entry[1].Trim(),
+					Language1 = entry[0].Trim(),
 					Language2 = part.Trim(),
 					Language2Array = split ? null : SplitWords(part),
-					Transcription = entry[2]
+					Transcription = entry[2].Trim()
 				};
 		}
 	}
