@@ -41,7 +41,7 @@ namespace Nabu.ViewModels
 		public bool IsMode2 => Mode.Id == 1 && HasStillWords;
 		public bool IsMode3 => Mode.Id == 2 && HasStillWords;
 
-		public bool HasStillWords => LectionWords?.Count >= 1;
+		public bool HasStillWords => LectionWords?.Count >= 1 || CurrentWord?.Transcription != null;
 
 		public Word CurrentWord
 		{
@@ -107,7 +107,8 @@ namespace Nabu.ViewModels
 		{
 			bool isCorrect;
 			if (IsMode1)
-				isCorrect = CompareText(CurrentWord.Language2, CurrentInput);
+				isCorrect = new[] { CurrentWord.Language2 }.Concat(CurrentWord.Language2Array)
+					.Any(w => CompareText(w, CurrentInput));
 			else if (IsMode2)
 				isCorrect = CompareText(CurrentWord.Language1, CurrentInput);
 			else if (IsMode3)
@@ -164,6 +165,7 @@ namespace Nabu.ViewModels
 			}
 			if (LectionWords.Count == 0)
 			{
+				CurrentWord = null;
 				Unit = null;
 				return;
 			}
