@@ -21,6 +21,7 @@ namespace Nabu.ViewModels
 				OnPropertyChanged(nameof(IsMode2));
 				OnPropertyChanged(nameof(IsMode3));
 				OnPropertyChanged(nameof(HasStillWords));
+				OnPropertyChanged(nameof(LectionWordCount));
 			}
 		}
 
@@ -28,8 +29,8 @@ namespace Nabu.ViewModels
 		public Mode Mode => Unit?.Mode ?? new Mode();
 		public string Lection => Unit?.Lection;
 
-		public double Correct => CorrectCount / ((LectionWords?.Count ?? 1) * MaxRepetitions);
-		public double Wrong => WrongCount / ((LectionWords?.Count ?? 1) * MaxRepetitions);
+		public double Correct => CorrectCount / (LectionWordCount * MaxRepetitions);
+		public double Wrong => WrongCount / (LectionWordCount * MaxRepetitions);
 		public bool PlaySound { get; set; } = true;
 		public IDictionary<string, int> Repetitions { get; set; }
 		private const double MaxRepetitions = 2.0;
@@ -79,6 +80,7 @@ namespace Nabu.ViewModels
 												w[1].Replace(".", string.Empty) == l)
 					.SelectMany(w => WordsViewModel.AsWordObj(w, split: false));
 				LectionWords = new List<Word>(possible);
+				LectionWordCount = LectionWords.Count;
 			}
 			IsBusy = false;
 		}
@@ -94,6 +96,7 @@ namespace Nabu.ViewModels
 			return false;
 		}
 
+		private int LectionWordCount;
 		private int WrongCount;
 		private int CorrectCount;
 		private bool Solved;
@@ -144,6 +147,7 @@ namespace Nabu.ViewModels
 		{
 			WrongCount = 0;
 			CorrectCount = 0;
+			LectionWordCount = 0;
 			LectionWords = null;
 			Repetitions.Clear();
 			NextWord();
