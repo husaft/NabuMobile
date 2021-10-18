@@ -43,10 +43,10 @@
 			    <RowDefinition Height="1*" />
 		    </Grid.RowDefinitions>
 			<Label Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Persisch:" />
-			<Entry Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+			<Entry Grid.Row="1" Margin="90,0,90,0" VerticalOptions="Center" 
 			       Text="{Binding CurrentWord.Language1}" IsReadOnly="True" FontSize="Large" />
 			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Transkription:" />
-			<Entry Grid.Row="3" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+			<Entry Grid.Row="3" Margin="90,0,90,0" VerticalOptions="Center" 
 			       Text="{Binding CurrentWord.Transcription}" IsReadOnly="True" FontSize="Large" />
 			<Label Grid.Row="4" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Deutsch:" />
 			<Entry Grid.Row="5" Margin="90,0,90,0" VerticalOptions="Center" 
@@ -60,7 +60,7 @@
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
 			<Label Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Deutsch:" />
-			<Entry Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+			<Entry Grid.Row="1" Margin="90,0,90,0" VerticalOptions="Center" 
 				   Text="{Binding CurrentWord.Language2}" IsReadOnly="True" FontSize="Large" />
 			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Persisch:" />
 			<Entry Grid.Row="3" Margin="90,0,90,0" VerticalOptions="Center" 
@@ -74,7 +74,7 @@
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
 			<Label Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Persisch:" />
-			<Entry Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+			<Entry Grid.Row="1" Margin="90,0,90,0" VerticalOptions="Center" 
 			       Text="{Binding CurrentWord.Language1}" IsReadOnly="True" FontSize="Large" />
 			<Label Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Transkription:" />
 			<Entry Grid.Row="3" Margin="90,0,90,0" VerticalOptions="Center" 
